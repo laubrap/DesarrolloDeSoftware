@@ -10,7 +10,13 @@ class Producto{
     }
 
     precioFinal(){
-        
+        const precioBase = this.cantidad * this.precio;
+        return precioBase - this.descuentosTotales(precioBase);
+    }
+
+    descuentosTotales(precioBase){
+        return this.descuentos.reduce((acumulador,descuento) =>
+            acumulador + descuento, 0)
     }
 }
 
@@ -42,4 +48,17 @@ class DescuentoTresPorDos{
     cantidadDeTrios(cantidad){
         return Math.floor(cantidad / 3);
     }
+}
+
+class Carrito{
+
+    constructor() {
+        this.carrito = [];
+    }
+
+    agregarProducto(producto){
+        this.carrito.push(producto);
+        console.log("se han ingresado conrrectamente los productos al carrito");
+    }
+
 }
