@@ -1,4 +1,4 @@
-class Producto{
+export class Producto{
 
     //sirve para obligar que cuando instanciemos la clase debamos dar valor
     // a estos parametros, no hace flata declararlos arriba
@@ -6,41 +6,47 @@ class Producto{
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
+        this.precioBase = this.cantidad * this.precio;
         this.descuentos = [];
     }
 
+
+
     precioFinal(){
-        const precioBase = this.cantidad * this.precio;
-        return precioBase - this.descuentosTotales(precioBase);
+        return Math.max(0,this.precioBase - this.descuentosTotales())
     }
 
-    descuentosTotales(precioBase){
+    agregarDescuentos(descuento){
+        this.descuentos.push(descuento)
+    }
+
+    descuentosTotales(){
         return this.descuentos.reduce((acumulador,descuento) =>
-            acumulador + descuento, 0)
+            acumulador + descuento.valorDescontado(this), 0)
     }
 }
 
-class DescuentoFijo{
-    constructor(descuento) {
-        this.descuento = descuento;
+export class DescuentoFijo{
+    constructor(monto) {
+        this.monto = monto;
     }
 
     valorDescontado(_producto){
-        return this.descuento;
+        return this.monto;
     }
 }
 
-class DescuentoPorcentual{
+export class DescuentoPorcentual{
     constructor(porcentaje) {
         this.porcentaje = porcentaje;
     }
 
     valorDescontado(producto){
-        return (this.porcentaje/100) * producto.precio;
+        return (this.porcentaje/100) * producto.precio * producto.cantidad;
     }
 }
 
-class DescuentoTresPorDos{
+export class DescuentoTresPorDos{
     valorDescontado(producto){
         return this.cantidadDeTrios(producto.cantidad) * producto.precio;
     }
@@ -50,7 +56,7 @@ class DescuentoTresPorDos{
     }
 }
 
-class Carrito{
+export class Carrito{
 
     constructor() {
         this.carrito = [];
@@ -61,4 +67,13 @@ class Carrito{
         console.log("se han ingresado conrrectamente los productos al carrito");
     }
 
+    listarProductos (){
+        this.carrito.forEach( (producto) => {
+            console.log(producto.nombre)
+            console.log("Cantidad: " + producto.cantidad)
+            console.log("Precio por unidad " + producto.precio)
+            console.log("Precio sin descuento: " + producto.precioBase)
+            console.log("Precio con descuentos: " + producto.precioFinal())
+        } )
+    }
 }
