@@ -2,15 +2,14 @@ export class Producto{
 
     //sirve para obligar que cuando instanciemos la clase debamos dar valor
     // a estos parametros, no hace flata declararlos arriba
-    constructor(nombre, precio, cantidad) {
+    constructor(nombre, precio, cantidad, categoria) {
         this.nombre = nombre;
         this.precio = precio;
+        this.categoria = categoria;
         this.cantidad = cantidad;
         this.precioBase = this.cantidad * this.precio;
         this.descuentos = [];
     }
-
-
 
     precioFinal(){
         return Math.max(0,this.precioBase - this.descuentosTotales())
@@ -62,7 +61,8 @@ export class Carrito{
         this.carrito = [];
     }
 
-    agregarProducto(producto){
+    agregarProductoCarrito(producto){
+
         this.carrito.push(producto);
         console.log("se han ingresado conrrectamente los productos al carrito");
     }
@@ -75,5 +75,36 @@ export class Carrito{
             console.log("Precio sin descuento: " + producto.precioBase)
             console.log("Precio con descuentos: " + producto.precioFinal())
         } )
+    }
+
+    precioTotal(){
+        const total = this.carrito.reduce((acumulador,producto) => {return acumulador + producto.precioFinal()} , 0)
+        console.log("Precio total del carrito: " + total)
+     }
+}
+
+export class Tienda {
+    constructor() {
+        this.productosDisponibles = []
+    }
+
+    listarProductosDisponibles(){
+        this.productosDisponibles.forEach(producto => {
+            console.log(producto.nombre)
+            console.log("Cantidad disponible: " + producto.cantidad)
+            console.log("Precio por unidad " + producto.precio)
+        })
+    }
+
+    agregarProductoTienda(producto){
+
+        this.productosDisponibles.push(producto);
+        console.log("se han ingresado conrrectamente los productos a la tienda");
+    }
+
+    filtrarPorCategoria(categoria){
+        let productosFiltrados = this.productosDisponibles.filter(producto =>
+            producto.categoria === categoria)
+        productosFiltrados.forEach(productos => console.log(productos.nombre))
     }
 }
