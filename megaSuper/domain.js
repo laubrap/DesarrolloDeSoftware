@@ -77,6 +77,7 @@ export class Carrito{
         } )
     }
 
+    //Obtener la suma total de los precios.
     precioTotal(){
         const total = this.carrito.reduce((acumulador,producto) => {return acumulador + producto.precioFinal()} , 0)
         console.log("Precio total del carrito: " + total)

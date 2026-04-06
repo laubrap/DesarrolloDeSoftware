@@ -1,6 +1,7 @@
 import {Producto, Carrito, DescuentoFijo, DescuentoTresPorDos, Tienda} from "./domain.js";
+import {ordenarListaPorPrecio, productosConPreciosMenores} from "./functions.js";
 
-let cocacola = new Producto("cocacola",120,12,"bebida")
+let cocacola = new Producto("cocacola",126,12,"bebida")
 let leche = new Producto("leche",120,11,"bebida")
 let carrito = new Carrito()
 let descuento = new DescuentoFijo(200)
@@ -15,10 +16,13 @@ cocacola.agregarDescuentos(descuento)
 carrito.agregarProductoCarrito(cocacola)
 carrito.agregarProductoCarrito(leche)
 carrito.precioTotal()
-carrito.listarProductos()
+//carrito.listarProductos()
 
 tienda.agregarProductoTienda(cocacola)
 tienda.agregarProductoTienda(leche)
-tienda.listarProductosDisponibles()
+//tienda.listarProductosDisponibles()
+//tienda.filtrarPorCategoria("bebida")
 
-tienda.filtrarPorCategoria("bebida")
+//console.log(productosConPreciosMenores(tienda.productosDisponibles,1500))
+
+//console.log(ordenarListaPorPrecio(tienda.productosDisponibles))
