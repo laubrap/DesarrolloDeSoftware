@@ -84,7 +84,8 @@ item5.agregarDescuento(new DescuentoPorcentual(20));
 console.log("Producto:", item5.productName());
 console.log("Precio total sin descuento:", item5.precioTotalSinDescuento()); // 400
 console.log("Descuentos totales:", item5.descuentosTotales());               // 30 + 80 = 110
-console.log("Precio final:", item5.precioFinal());                           // 290
+console.log("Preciooo final:", item5.precioFinal());
+console.log("prueba para ver commits");                           // 290
 
 // ─────────────────────────────────────────────
 // TEST 6 — Descuento mayor al precio (Math.max protección)
